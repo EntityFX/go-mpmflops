@@ -25,10 +25,10 @@ const (
 	wval float32 = 0.000021
 	yval float32 = 1.000021
 
-	Newdata float32 = 0.999999
+	newdata float32 = 0.999999
 )
 
-func TriadPlusLarge(n int, a, b, c, d, e, f, g, h, j, k,
+func triadPlusLarge(n int, a, b, c, d, e, f, g, h, j, k,
 	l, m, o, p, q, r, s, t, u, v, w, y float32, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i]+a)*b - (x[i]+c)*d + (x[i]+e)*f -
@@ -38,19 +38,19 @@ func TriadPlusLarge(n int, a, b, c, d, e, f, g, h, j, k,
 	}
 }
 
-func TriadPlusMid(n int, a, b, c, d, e, f float32, x []float32) {
+func triadPlusMid(n int, a, b, c, d, e, f float32, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i]+a)*b - (x[i]+c)*d + (x[i]+e)*f
 	}
 }
 
-func Triad(n int, a, b float32, x []float32) {
+func triad(n int, a, b float32, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i] + a) * b
 	}
 }
 
-func TriadConstPlusLarge(n int, x []float32) {
+func triadConstPlusLarge(n int, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i]+aval)*bval - (x[i]+cval)*dval + (x[i]+eval)*fval -
 			(x[i]+gval)*hval + (x[i]+jval)*kval - (x[i]+lval)*mval +
@@ -59,19 +59,19 @@ func TriadConstPlusLarge(n int, x []float32) {
 	}
 }
 
-func TriadConstPlusMid(n int, x []float32) {
+func triadConstPlusMid(n int, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i]+aval)*bval - (x[i]+cval)*dval + (x[i]+eval)*fval
 	}
 }
 
-func TriadConst(n int, x []float32) {
+func triadConst(n int, x []float32) {
 	for i := 0; i < n; i++ {
 		x[i] = (x[i] + aval) * bval
 	}
 }
 
-func GetOpwd(part int) int {
+func getOpwd(part int) int {
 	switch part {
 	case 0:
 		return 2
@@ -84,13 +84,13 @@ func GetOpwd(part int) int {
 	}
 }
 
-func InitXCpu(value float32, xCpu []float32) {
+func initXCpu(value float32, xCpu []float32) {
 	for i := 0; i < len(xCpu); i++ {
 		xCpu[i] = value
 	}
 }
 
-func Validate(xCpu []float32, words int, newdata float32) (bool, bool) {
+func validate(xCpu []float32, words int, newdata float32) (bool, bool) {
 	isok1, isok2 := true, true
 	one := xCpu[0]
 
