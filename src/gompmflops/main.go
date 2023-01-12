@@ -1,13 +1,12 @@
 package main
 
 import (
+	"gompmflops/mpmflops"
 	"runtime"
-
-	"github.com/entityfx/mpmflops/mpmflops"
 )
 
 func main() {
 	threads := runtime.NumCPU()
-
+	println(threads)
 	mpmflops.MpmflopsRun(threads)
 }
