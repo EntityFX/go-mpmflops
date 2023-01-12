@@ -2,7 +2,8 @@ package mpmflops
 
 import (
 	"fmt"
-	"mpmflops"
+	"go-mpmflops/mpmflops"
+
 	"sync"
 	"time"
 )
@@ -45,17 +46,17 @@ func RunConstTests(words int, repeats int, offset int, part int, threads int, xC
 		// calculations in CPU
 		switch part {
 		case 0:
-			triadConst(wds, xcp)
+			TriadConst(wds, xcp)
 		case 1:
-			triadConstPlusMid(wds, xcp)
+			TriadConstPlusMid(wds, xcp)
 		case 2:
-			triadConstPlusLarge(wds, xcp)
+			TriadConstPlusLarge(wds, xcp)
 		}
 	}
 }
 
 func RunParallelTests(runTestsFunc RunTestsFunc, words int, repeats int, initValue float32, part int, threads int, xCpu []float32) time.Duration {
-	initXCpu(initValue, xCpu)
+	InitXCpu(initValue, xCpu)
 
 	waitGroup := sync.WaitGroup{}
 
@@ -89,16 +90,16 @@ func RunAllTests(runTestsFunc mpmflops.RunTestsFunc, threads int, numberOfRepeat
 			xCpu := make([]float32, sizeX)
 
 			if calibrate {
-				endTime := mpmflops.RunParallelTests(runTestsFunc, words, repeats, mpmflops.Newdata, part, threads, xCpu)
+				endTime := RunParallelTests(runTestsFunc, words, repeats, mpmflops.Newdata, part, threads, xCpu)
 				repeats = int(float64(repeats) * 15.0 / endTime.Seconds())
 				startRepeats = repeats
 
 				calibrate = false
 			}
 
-			testDuration := mpmflops.RunParallelTests(runTestsFunc, words, repeats, mpmflops.Newdata, part, threads, xCpu)
+			testDuration := RunParallelTests(runTestsFunc, words, repeats, mpmflops.Newdata, part, threads, xCpu)
 
-			opwd := mpmflops.getOpwd(part)
+			opwd := GetOpwd(part)
 
 			fpmops := float64(words * opwd)
 			mflops = float64(repeats) * fpmops / 1000000.0 / testDuration.Seconds()
@@ -108,7 +109,7 @@ func RunAllTests(runTestsFunc mpmflops.RunTestsFunc, threads int, numberOfRepeat
 			fmt.Printf("%15s %9d %5d %8d %10.6f %8.0f ", title, words, opwd, repeats, testDuration.Seconds(), mflops)
 
 			isTestOk := true
-			isTestOk, isTestsOk = Validate(xCpu, words)
+			isTestOk, isTestsOk = Validate(xCpu, words, Newdata)
 
 			words = words * 10
 			repeats = repeats / 10

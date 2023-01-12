@@ -71,7 +71,7 @@ func TriadConst(n int, x []float32) {
 	}
 }
 
-func getOpwd(part int) int {
+func GetOpwd(part int) int {
 	switch part {
 	case 0:
 		return 2
@@ -84,7 +84,7 @@ func getOpwd(part int) int {
 	}
 }
 
-func initXCpu(value float32, xCpu []float32) {
+func InitXCpu(value float32, xCpu []float32) {
 	for i := 0; i < len(xCpu); i++ {
 		xCpu[i] = value
 	}
