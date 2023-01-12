@@ -132,7 +132,7 @@ func runAllTests(runTestsFunc runTestsFunc, threads int, numberOfRepeats int, st
 	}
 }
 
-func MpmflopsRun(threads int) {
+func MpmflopsRun(threads int, calibrate bool) {
 	fmt.Printf("%d CPUs Available\n", threads)
 	fmt.Printf("\n")
 	fmt.Printf("##############################################\n\n")
@@ -150,7 +150,7 @@ func MpmflopsRun(threads int) {
 	}
 
 	for k, v := range runTestFuncs {
-		runAllTests(v, threads, numberOfRepeats, numberOfWords, 3, false, k)
+		runAllTests(v, threads, numberOfRepeats, numberOfWords, 3, calibrate, k)
 		fmt.Printf("##############################################\n\n")
 	}
 

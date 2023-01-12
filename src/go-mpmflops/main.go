@@ -1,13 +1,21 @@
 package main
 
 import (
+	"flag"
 	"runtime"
 
 	"github.com/EntityFX/go-mpmflops/mpmflops"
 )
 
 func main() {
-	threads := runtime.NumCPU()
+	threadsPtr := flag.Int("t", runtime.NumCPU(), "Threads count")
+	calibratePtr := flag.Bool("c", false, "Calibrate")
 
-	mpmflops.MpmflopsRun(threads)
+	flag.Parse()
+
+	if *threadsPtr < 1 || *threadsPtr > runtime.NumCPU() {
+		*threadsPtr = runtime.NumCPU()
+	}
+
+	mpmflops.MpmflopsRun(*threadsPtr, *calibratePtr)
 }
